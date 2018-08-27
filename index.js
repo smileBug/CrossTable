@@ -14,9 +14,15 @@ class Table extends Component {
       this.selection = selectionManager.getSelection(props.crossOption.uid);
     }
   }
-  componentWillUnmount() {
-    this.selection.destroy();
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props.crossOption.allIds) !== JSON.stringify(nextProps.crossOption.allIds)) {
+      this.selection.destroy();
+    }
   }
+
+  // componentWillUnmount() {
+  //   this.selection.destroy();
+  // }
 
   getRowKey = record => {
     let {rowKey} = this.props;
@@ -46,14 +52,17 @@ class Table extends Component {
     }
     return (
       <div className='x-table-toolbar'>
-        <div>
-          已勾选<span>{selectCount}</span>项，
-          {
-            (this.selection.isSelectAll || selectCount === allIds.length) ? 
-            <a onClick={this.selection.cancelSelectAll}>取消勾选</a> :
-            <a onClick={() => this.selection.selectAll(allIds)}>勾选全部{total}项</a>
-          }
-        </div>
+        {
+          allIds.length !== 0 &&
+          <div>
+            <span>已勾选{selectCount}项，</span>
+            {
+              (this.selection.isSelectAll || selectCount === allIds.length) ? 
+              <a onClick={this.selection.cancelSelectAll}>取消勾选</a> :
+              <a onClick={() => this.selection.selectAll(allIds)}>勾选全部{total}项</a>
+            }
+          </div>
+        }
         <div>
           {otherTool}
         </div>
