@@ -1,4 +1,4 @@
-import {observable, action, computed, toJS} from 'mobx';
+import {observable, action, toJS} from 'mobx';
 
 class Selection {
   @observable isSelectAll = false;

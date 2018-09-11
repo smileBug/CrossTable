@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Table as NormalTable} from 'antd';
 import {observer} from 'mobx-react';
-import {observable, action, toJS} from 'mobx';
 import selectionManager from './store.js';
+import './style.css';
 
 @observer
 class Table extends Component {
@@ -51,7 +51,7 @@ class Table extends Component {
       selectCount = total;
     }
     return (
-      <div className='x-table-toolbar'>
+      <div className='crossTable-toolbar'>
         {
           allIds.length !== 0 &&
           <div>
